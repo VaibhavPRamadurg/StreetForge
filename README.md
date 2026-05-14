@@ -15,7 +15,7 @@
 
 **Design IRC-compliant urban roads with real-time 3D visualization, automated pavement thickness calculations, exploded sub-surface views, wellbeing scoring, and instant PDF + BoQ generation.**
 
-[**Live Demo →**](https://street-forge.vercel.app) &nbsp;·&nbsp; [Report Bug](https://github.com/VaibhavPRamadurg/StreetForge/issues) &nbsp;·&nbsp; [Request Feature](https://github.com/VaibhavPRamadurg/StreetForge/issues)
+[**Live Demo →**](https://street-forge-brown.vercel.app) &nbsp;·&nbsp; [Report Bug](https://github.com/VaibhavPRamadurg/StreetForge/issues) &nbsp;·&nbsp; [Request Feature](https://github.com/VaibhavPRamadurg/StreetForge/issues)
 
 </div>
 
