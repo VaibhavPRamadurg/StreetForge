@@ -1,163 +1,254 @@
-# StreetForge — IRC Street Design & Visualization Platform
+<div align="center">
 
-> Next-generation 3D civil engineering tool for Indian road design.  
-> IRC:103-2012 · IRC:37-2012 · MORT&H compliant · React Three Fiber
+<img src="https://img.shields.io/badge/StreetForge-IRC%20Civil%20Engineering%20Platform-00d4ff?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzAwZDRmZiIgZD0iTTEyIDJMMiA3bDEwIDUgMTAtNS0xMC01ek0yIDE3bDEwIDUgMTAtNS0xMC01LTEwIDV6TTIgMTJsMTAgNSAxMC01LTEwLTUtMTAgNXoiLz48L3N2Zz4="/>
+
+# StreetForge
+
+### IRC-Compliant 3D Road Design Platform for Indian Civil Engineers
+
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?style=flat-square&logo=typescript)](https://typescriptlang.org)
+[![Three.js](https://img.shields.io/badge/Three.js-R184-black?style=flat-square&logo=three.js)](https://threejs.org)
+[![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite)](https://vitejs.dev)
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000000?style=flat-square&logo=vercel)](https://vercel.com)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+
+**Design IRC-compliant urban roads with real-time 3D visualization, automated pavement thickness calculations, exploded sub-surface views, wellbeing scoring, and instant PDF + BoQ generation.**
+
+[**Live Demo →**](https://street-forge.vercel.app) &nbsp;·&nbsp; [Report Bug](https://github.com/VaibhavPRamadurg/StreetForge/issues) &nbsp;·&nbsp; [Request Feature](https://github.com/VaibhavPRamadurg/StreetForge/issues)
+
+</div>
 
 ---
 
-## 🚀 Quick Start
+## ✨ Features
 
-```bash
-npm install
-npm run dev          # http://localhost:5173
-```
+### 🛣️ Engineering Core
+- **IRC:37-2012 Pavement Design** — Auto-calculates BC, DBM, WMM, GSB thicknesses using design traffic (MSA), subgrade CBR, design life, and climate zone via the standard IRC interpolation formula
+- **IRC:103-2012 Cross-Section Compliance** — Real-time validation of carriageway widths, footpath dimensions, median requirements, and lane configurations for all road categories (NH / SH / MDR / ODR / VR)
+- **Rational Method Drainage (IRC:SP:50)** — Computes peak discharge Q = CIA/360, recommends drain diameter, and calculates runoff volume
+- **Bill of Quantities (BoQ)** — Auto-generated itemised estimate in INR using MoRT&H SOR 2024 rates, with cost-per-km summary
+
+### 🎮 3D Visualisation
+- **React Three Fiber (R3F)** powered real-time 3D road model
+- **Exploded View** — Lifts the road surface to expose all sub-surface pavement layers (BC → DBM → WMM → GSB → Subgrade) with emissive glow and live labels
+- **Underground Utilities Layer** — Visualises water main, sewer, HT cable duct, telecom conduit, and gas pipeline in correct positions and depths
+- **Live Surface View** — Orbit, pan, and zoom with keyboard-accessible controls
+- **2D Cross-Section Editor** — Drag-to-reorder and resize segments with proportional flex layout
+
+### 🌿 Wellbeing & Environment Scoring
+- **7-metric scoring model** (0–100 scale) — Pedestrian Safety, Air & Noise Quality, Stormwater Management, Urban Heat Island, Accessibility, Active Transport, Maintenance Ease
+- **Weighted composite score** with configurable per-metric weights via an admin panel
+- **Piecewise linear interpolation** maps raw geometry/traffic values to normalised scores
+- Color-coded score rings and expandable per-metric rationale text
+
+### 📄 PDF Export
+- **Client-side jsPDF report** — no server required, instant download
+- Covers: IRC design inputs, design traffic + thickness result tiles, proportional layer diagram, detailed layer table, compliance checks, wellbeing breakdown, and recommended actions
+- Professional A4 layout with branded header, colour-coded data, and page footer
+
+### 🧠 UX Enhancements
+- **Plain-English Parameter Tooltips** — click ⓘ on any slider to get a non-jargon explanation, safe range, and quick presets (e.g. "Quiet village road → 50 CVPD")
+- **Cinematic Intro Animation** — 3-second brand reveal, session-aware (shows once), skips on `prefers-reduced-motion`
+- **AI Design Partner** tab — In-editor chat for engineering guidance
+- **Compliance badge** — Live IRC pass/fail percentage in TopBar
 
 ---
 
-## 📁 Project Structure
+## 🖼️ Screenshots
 
-```
-StreetDesign/
-├── index.html               # Vite entry point
-├── vite.config.ts
-├── tsconfig.json
-├── package.json
-│
-└── src/
-    ├── main.tsx             # App bootstrap
-    ├── App.tsx              # Router (/, /editor, /about)
-    │
-    ├── styles/
-    │   └── index.css        # Global design system — tokens, glassmorphism, animations
-    │
-    ├── pages/               # Route-level page components
-    │   ├── Dashboard.tsx    # Project overview, metrics, quick start
-    │   ├── Editor.tsx       # Main workspace (3D + 2D + panels)
-    │   └── About.tsx        # Tech stack & usage guide
-    │
-    ├── components/
-    │   ├── editor-2d/       # 2D cross-section editor
-    │   │   ├── SectionEditor.tsx    # Drag-to-reorder segment strip
-    │   │   └── index.ts
-    │   │
-    │   ├── editor-3d/       # Three.js / React Three Fiber scene
-    │   │   ├── RoadScene.tsx        # Canvas, lighting, controls, fog
-    │   │   ├── RoadGeometry.tsx     # Surface slabs, trees, streetlights, markings
-    │   │   ├── PavementLayers.tsx   # Exploded BC/DBM/WMM/GSB/Subgrade stack
-    │   │   ├── UtilitiesLayer.tsx   # Underground water/sewer/cable/gas pipes
-    │   │   └── index.ts
-    │   │
-    │   ├── layout/          # App chrome
-    │   │   ├── TopBar.tsx           # Project info, view mode toggle, compliance score
-    │   │   ├── LeftPanel.tsx        # Project config, segment management
-    │   │   ├── RightPanel.tsx       # Engineering panel tab host
-    │   │   └── index.ts
-    │   │
-    │   ├── panels/          # Right-panel engineering modules
-    │   │   ├── PavementCalcPanel.tsx  # IRC:37-2012 layer stack
-    │   │   ├── DrainagePanel.tsx      # Q = C·I·A/360 rational method
-    │   │   ├── CompliancePanel.tsx    # Per-clause IRC pass/fail table
-    │   │   ├── BoQPanel.tsx           # Bill of Quantities (MORT&H SOR)
-    │   │   ├── AIAssistant.tsx        # IRC design chatbot
-    │   │   └── index.ts
-    │   │
-    │   └── ui/              # Shared primitive components (future)
-    │
-    ├── store/
-    │   ├── useStreetStore.ts  # Zustand store — single source of truth
-    │   └── index.ts
-    │
-    ├── constants/
-    │   ├── irc.ts           # All static IRC data: colours, tables, offsets, widths
-    │   └── index.ts
-    │
-    ├── types/
-    │   ├── street.ts        # StreetProject, StreetSegment, PavementLayer types
-    │   └── index.ts
-    │
-    ├── utils/
-    │   ├── ircCalc.ts       # Engineering calculations (pavement, drainage, BoQ)
-    │   └── index.ts
-    │
-    └── hooks/               # Custom React hooks (future)
-```
+| Dashboard | 3D Editor — Surface View |
+|---|---|
+| *Project dashboard with metrics, recent projects, and quick-start templates* | *Live 3D road with segment labels and dimension overlays* |
+
+| Exploded View | Wellbeing Score Stack |
+|---|---|
+| *Sub-surface layers and underground utilities revealed* | *7-metric environment panel with composite score ring* |
 
 ---
 
 ## 🏗️ Architecture
 
-### Data Flow: JSON-to-Road Pattern
-
 ```
-User Input (sliders / 2D editor)
-        ↓
-useStreetStore (Zustand)      ← single reactive state atom
-        ↓
-ircCalc.ts                    ← engineering recalculation
-        ↓
-  ┌─────────────┬──────────────────┐
-  ▼             ▼                  ▼
-RoadGeometry  PavementLayers  RightPanels
-(surface 3D)  (exploded 3D)   (numbers/charts)
+src/
+├── components/
+│   ├── editor-2d/          # 2D cross-section drag-and-resize editor
+│   ├── editor-3d/          # React Three Fiber 3D scene, layers, utilities
+│   ├── layout/             # TopBar, LeftPanel, RightPanel
+│   ├── panels/             # PavementCalcPanel, DrainagePanel, CompliancePanel,
+│   │                       # BoQPanel, WellbeingScorePanel
+│   └── ui/                 # IntroAnimation, ParameterTooltip
+├── pages/
+│   ├── Dashboard.tsx        # Project dashboard
+│   ├── Editor.tsx           # Main 3D editor
+│   └── About.tsx            # Tech stack & guide
+├── store/
+│   └── useStreetStore.ts    # Zustand global state
+├── utils/
+│   ├── ircCalc.ts           # IRC:37-2012 & IRC:103-2012 calculation engine
+│   ├── wellbeingScore.ts    # 7-metric weighted scoring model
+│   └── exportPDF.ts         # jsPDF client-side report generator
+└── types/
+    └── street.ts            # StreetProject, StreetSegment, PavementLayer types
 ```
-
-Every UI action triggers a store update → calculations run → all views re-render reactively.
-
-### View Modes
-| Mode | Description |
-|---|---|
-| **Surface** | Standard 3D road view with trees, streetlights, markings |
-| **Exploded** | "Antigravity" pavement layer separation — BC/DBM/WMM/GSB stagger upward, utilities drop downward |
 
 ---
 
-## 🔧 Tech Stack
+## 🔬 Engineering Model
 
-| Layer | Library | Version |
+### Pavement Design — IRC:37-2012
+
+Design traffic is calculated using the standard compound growth formula:
+
+```
+N = 365 × A × D × F × [(1 + r)ⁿ − 1] / r  ÷  1,000,000  MSA
+```
+
+| Parameter | Value | Source |
 |---|---|---|
-| Framework | React | 19 |
-| Language | TypeScript | 6.0 |
-| Build | Vite | 8.0 |
-| 3D Engine | Three.js + React Three Fiber | r184 / v9.6 |
-| 3D Helpers | @react-three/drei | v10.7 |
-| Animation | Framer Motion | v12 |
-| State | Zustand | v5.0 |
-| Routing | React Router | v7.15 |
-| Charts | Recharts | v3.8 |
+| Growth rate (r) | 7.5% | IRC:37-2012 |
+| Vehicle Damage Factor (VDF) | 2.5 | IRC:37-2012 |
+| Lane Distribution Factor (LDF) | 0.75 | IRC:37-2012 Table-3 |
+
+Pavement layer thicknesses are then read by interpolating IRC:37-2012 Table-1 against the computed MSA and subgrade CBR.
+
+### Wellbeing Scoring Formula
+
+```
+Composite = Σ (score_i × weight_i) / Σ weight_i
+```
+
+Each `score_i` is derived via piecewise linear interpolation across domain breakpoints specific to that metric. Default weights:
+
+| Metric | Default Weight |
+|---|---|
+| Pedestrian Safety | 20% |
+| Air & Noise Quality | 15% |
+| Stormwater Management | 15% |
+| Urban Heat Island | 15% |
+| Accessibility | 15% |
+| Active Transport | 10% |
+| Maintenance Ease | 10% |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js **v18+**
+- npm **v9+**
+
+### Local Development
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/VaibhavPRamadurg/StreetForge.git
+cd StreetForge
+
+# 2. Install dependencies
+npm install
+
+# 3. Start the dev server
+npm run dev
+```
+
+Open **http://localhost:5173** in your browser.
+
+### Production Build
+
+```bash
+npm run build      # Runs tsc -b && vite build
+npm run preview    # Serves the dist/ bundle locally
+```
+
+---
+
+## 🧰 Tech Stack
+
+| Category | Technology | Version |
+|---|---|---|
+| UI Framework | React | 19 |
+| Language | TypeScript | ~6.0 |
+| Bundler | Vite | 8 |
+| 3D Rendering | Three.js + React Three Fiber | ^0.184 / ^9 |
+| 3D Helpers | @react-three/drei | ^10 |
+| Animations | Framer Motion | ^12 |
+| State Management | Zustand | ^5 |
+| Routing | React Router DOM | ^7 |
+| PDF Generation | jsPDF | ^4 |
+| Charts | Recharts | ^3 |
+| Icons | Lucide React | ^1 |
+| Deployment | Vercel | — |
 
 ---
 
 ## 📐 IRC Standards Implemented
 
-| Code | Standard | Usage |
-|---|---|---|
-| IRC:103-2012 | Urban Roads Geometric Design | Lane widths, footpath, median, ROW compliance |
-| IRC:37-2012 | Flexible Pavement Design | Thickness via CBR × MSA bilinear interpolation |
-| IRC:86-1983 | Geometric Design of State Roads | Minimum ROW per category |
-| IRC:SP:50-2013 | Urban Drainage | Q = C·I·A/360 rational method |
-| MORT&H 5th Rev | Specifications for Road Works | BoQ item rates |
+| Standard | Scope |
+|---|---|
+| IRC:37-2012 | Flexible pavement design — layer thicknesses, design traffic |
+| IRC:103-2012 | Urban road cross-sections — widths, footpaths, medians |
+| IRC:86-1983 | Geometric design of state highways |
+| IRC:SP:50 | Storm water drains — rational method, sizing |
+| IRC:111-2009 | Bituminous mix specifications (VG-30 grades) |
+| MoRT&H 5th Rev | Material specifications and SOR rates for BoQ |
+| IRC:36-2010 | Compacted subgrade construction |
 
 ---
 
-## 🎨 Design System
+## 🗂️ Project Structure — Key Files
 
-All design tokens live in `src/styles/index.css`:
-
-| Token | Value | Usage |
-|---|---|---|
-| `--bg-void` | `#030712` | Page background |
-| `--neon-cyan` | `#00d4ff` | Primary accent |
-| `--neon-purple` | `#8b5cf6` | Exploded mode |
-| `--neon-green` | `#10b981` | Compliance pass |
-| `--neon-amber` | `#f59e0b` | Warnings |
-| `--font-mono` | JetBrains Mono | HUD, technical values |
+| File | Purpose |
+|---|---|
+| `src/utils/ircCalc.ts` | All IRC engineering calculations (pavement, drainage, compliance) |
+| `src/utils/wellbeingScore.ts` | 7-metric wellbeing engine with piecewise linear scoring |
+| `src/utils/exportPDF.ts` | Client-side A4 PDF generation using jsPDF v4 |
+| `src/store/useStreetStore.ts` | Zustand store — single source of truth for all project state |
+| `src/components/panels/WellbeingScorePanel.tsx` | Environment score UI with admin weight configurator |
+| `src/components/ui/ParameterTooltip.tsx` | Plain-English tooltips with quick-preset buttons |
+| `src/components/ui/IntroAnimation.tsx` | Session-aware cinematic brand intro |
+| `src/components/editor-3d/` | Full 3D scene: road mesh, pavement layers, utilities |
 
 ---
 
-## 📍 Routes
+## 🤝 Contributing
 
-| Path | Component | Description |
-|---|---|---|
-| `/` | Dashboard | Project list, metrics, quick start |
-| `/editor` | Editor | Full 3D + 2D design workspace |
-| `/about` | About | Tech stack, usage guide, IRC references |
+Pull requests are welcome. For major changes, please open an issue first to discuss what you'd like to change.
+
+```bash
+# Create a feature branch
+git checkout -b feature/your-feature-name
+
+# Make your changes, then run the build to verify
+npm run build
+
+# Push and open a PR
+git push origin feature/your-feature-name
+```
+
+Please ensure the production build (`npm run build`) passes without TypeScript errors before submitting.
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👤 Author
+
+**Vaibhav P Ramadurg**
+
+[![GitHub](https://img.shields.io/badge/GitHub-VaibhavPRamadurg-181717?style=flat-square&logo=github)](https://github.com/VaibhavPRamadurg)
+
+---
+
+<div align="center">
+
+Built with ⬡ for Indian Civil Engineering
+
+*IRC:37-2012 · IRC:103-2012 · Three.js R3F · React 19*
+
+</div>
