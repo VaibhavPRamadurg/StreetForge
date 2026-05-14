@@ -33,7 +33,7 @@ interface SegmentBlockProps {
   onDragOver: (id: string) => void;
 }
 
-function SegmentBlock({ seg, index, isLast, isDragging, onDragStart, onDragEnd, onDragOver }: SegmentBlockProps) {
+function SegmentBlock({ seg, index: _index, isLast, isDragging, onDragStart, onDragEnd, onDragOver }: SegmentBlockProps) {
   const { updateSegment, removeSegment } = useStreetStore();
   const isCarriageway = seg.type === 'carriageway';
   const isGreen = seg.type === 'median' || seg.type === 'green-buffer';

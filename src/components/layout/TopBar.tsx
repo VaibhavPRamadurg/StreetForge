@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useStreetStore } from '../../store/useStreetStore';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { exportPDFReport } from '../../utils/exportPDF';
 import { computeWellbeingScores, computeCompositeScore, DEFAULT_WEIGHTS } from '../../utils/wellbeingScore';
@@ -20,7 +20,7 @@ export default function TopBar({ onToggleSection, sectionOpen }: TopBarProps) {
     complianceChecks, designMSA, totalPavementThickness,
   } = useStreetStore();
 
-  const [showTelemetry, setShowTelemetry] = useState(false);
+  const [_showTelemetry, setShowTelemetry] = useState(false);
   const [exporting, setExporting] = useState(false);
 
   async function handleExport() {

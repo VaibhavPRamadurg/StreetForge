@@ -1,1 +1,1 @@
-export { default as useStreetStore } from './useStreetStore';
+export { useStreetStore } from './useStreetStore';

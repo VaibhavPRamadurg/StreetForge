@@ -1,4 +1,4 @@
-import { useRef, useMemo } from 'react';
+import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
 import { useStreetStore } from '../../store/useStreetStore';
@@ -88,13 +88,11 @@ function Pipe({ diameter, color, emissive, xOffset, depth, targetY, isExploded, 
 }
 
 export default function UtilitiesLayer() {
-  const { project, viewMode } = useStreetStore();
-  const { segments } = project;
+  const { viewMode } = useStreetStore();
   const isExploded = viewMode === 'exploded';
 
   // Explode utilities downward when exploded
   const explodeOffset = isExploded ? -3.0 : 0;
-  const totalWidth = useMemo(() => segments.reduce((s, sg) => s + sg.width, 0), [segments]);
 
   return (
     <group>

@@ -75,7 +75,6 @@ const LAYER_COLOR: Record<string, [number,number,number]> = {
 
 function fill(doc: jsPDF, rgb: [number,number,number]) { doc.setFillColor(...rgb); }
 function textC(doc: jsPDF, rgb: [number,number,number]) { doc.setTextColor(...rgb); }
-function draw(doc: jsPDF, rgb: [number,number,number]) { doc.setDrawColor(...rgb); }
 
 function scoreRgb(s: number): [number,number,number] {
   return s >= 75 ? C.green : s >= 50 ? C.amber : s >= 30 ? C.orange : C.red;

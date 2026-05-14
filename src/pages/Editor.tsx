@@ -8,7 +8,7 @@ import { useStreetStore } from '../store/useStreetStore';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Editor() {
-  const { showDimensions, viewMode, complianceChecks, designMSA, totalPavementThickness, drainageDischarge } = useStreetStore();
+  const { showDimensions, viewMode, complianceChecks } = useStreetStore();
   const [sectionOpen, setSectionOpen] = useState(true);
   const [leftOpen, setLeftOpen] = useState(true);
   const [rightOpen, setRightOpen] = useState(true);

@@ -2,7 +2,7 @@ import { useStreetStore } from '../../store/useStreetStore';
 import { motion } from 'framer-motion';
 
 export default function BoQPanel() {
-  const { boqItems, roadLength, project } = useStreetStore();
+  const { boqItems, roadLength } = useStreetStore();
   const totalCost = boqItems.reduce((s, item) => s + item.amount, 0);
 
   function formatINR(n: number) {

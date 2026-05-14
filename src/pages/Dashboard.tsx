@@ -1,6 +1,5 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useStreetStore } from '../store/useStreetStore';
 
 const DEMO_PROJECTS = [
   { id: 1, name: 'Urban Arterial Road — Pune', category: 'MDR', location: 'Pune, MH', status: 'active', compliance: 94, width: '19.5m', lanes: 4, date: '2026-05-03', cbr: 4, msa: '21.4' },
@@ -40,7 +39,6 @@ const IRC_STANDARDS = [
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { project } = useStreetStore();
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-void)', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>

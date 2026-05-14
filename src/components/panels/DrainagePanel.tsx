@@ -2,7 +2,7 @@ import { useStreetStore } from '../../store/useStreetStore';
 import { calculateDrainage } from '../../utils/ircCalc';
 
 export default function DrainagePanel() {
-  const { project, updateProject, drainageDischarge } = useStreetStore();
+  const { project, updateProject } = useStreetStore();
   const { drainage } = project;
 
   const Q = calculateDrainage(drainage);
